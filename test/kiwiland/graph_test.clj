@@ -135,3 +135,12 @@
   (testing "The distance for a one stop is correctly calculated"
     (let [g (build-graph ["ab1" "bc1" "cd1" "de1"])]
       (is (= (distance g [:a :b]) 1)))))
+
+(def test-graph (build-graph ["ab1" "bc1" "cb1" "bd1" "dc1"]))
+
+(deftest check-search
+  (testing "Testing the imported search function"
+    (is (= (search test-graph :a #(= (-> % :path last) :c) #(< (-> % :distance) 5))
+           [{:path [:a :b :c], :complete? true, :distance 2}
+            {:path [:a :b :c :b :c], :complete? true, :distance 4}
+            {:path [:a :b :d :c], :complete? true, :distance 3}]))))

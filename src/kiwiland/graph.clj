@@ -1,5 +1,6 @@
 (ns kiwiland.graph
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:require [kiwiland.search :as bfsearch]))
 
 
 (defn add-node
@@ -73,3 +74,5 @@
         segments (map #(one-stop the-graph %1 %2) starts finishes)]
     (cond (some nil? segments) nil
           :else (apply + segments))))
+
+(def search bfsearch/search)
